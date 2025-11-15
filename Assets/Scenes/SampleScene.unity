@@ -1236,6 +1236,8 @@ MonoBehaviour:
   trackedImageManager: {fileID: 331264288}
   placeablePrefabs:
   - {fileID: 6459362353527724645, guid: c4d0dc776a0589e4fa5ab9e22beb3015, type: 3}
+  - {fileID: 2893893400582451587, guid: a8c28ebc2f6d0ff4cb0dd1e25e8ce45c, type: 3}
+  - {fileID: 636668504390935902, guid: 8130e965827c9bc498d1a86752aca72e, type: 3}
 --- !u!1 &332374253
 GameObject:
   m_ObjectHideFlags: 0
