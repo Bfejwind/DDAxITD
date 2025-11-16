@@ -21,9 +21,9 @@ MonoBehaviour:
       m_GuidLow: 4954105885333809251
       m_GuidHigh: 8116782858106976440
     m_SerializedTextureGuid:
-      m_GuidLow: 3779885767607123406
-      m_GuidHigh: 17482910844950217371
-    m_Size: {x: 0.5, y: 0.5}
+      m_GuidLow: 7711540623899177763
+      m_GuidHigh: 10104141836233375035
+    m_Size: {x: 0.5, y: 0.6666667}
     m_SpecifySize: 1
     m_Name: BicepCurl
     m_Texture: {fileID: 0}

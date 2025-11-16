@@ -12,10 +12,12 @@ public class ImageTracker : MonoBehaviour
     [SerializeField]
     private GameObject[] placeablePrefabs;
 
-    private Dictionary<string, List<GameObject>> spawnedPrefabsGroups = new Dictionary<string, List<GameObject>>(); 
+    private Dictionary<string, List<GameObject>> spawnedPrefabsGroups = new Dictionary<string, List<GameObject>>();
+    public bool notSpawned;
 
     private void Start()
     {
+        notSpawned = true;
         if (trackedImageManager != null)
         {
             trackedImageManager.trackablesChanged.AddListener(OnImageChanged);
@@ -70,47 +72,53 @@ public class ImageTracker : MonoBehaviour
                     //Disable the associated content
                     prefab.transform.SetParent(null);
                     prefab.SetActive(false);
+                    notSpawned = true;
                 }
             }
             else if (trackedImage.trackingState == TrackingState.Tracking)
             {
-                Debug.Log(imageName + " is being tracked.");
                 foreach (GameObject prefab in spawnedPrefabsGroups[imageName])
                 {
-                    Debug.Log(prefab.name + " spawned");
                     //Enable the associated content
                     if (prefab.name.Contains("Main"))
                     {
-                        Debug.Log("Main is shown");
                         prefab.transform.SetParent(trackedImage.transform);
                         prefab.transform.localPosition = Vector3.zero;
                         prefab.transform.localRotation = Quaternion.identity;
                         prefab.SetActive(true);
                     }
-                    else if (prefab.name.Contains("End"))
+                    else if (notSpawned)
                     {
-                        OffsetPrefabs offset = prefab.GetComponent<OffsetPrefabs>();
-                        if (offset != null)
+                        if (prefab.name.Contains("End"))
                         {
-                            prefab.transform.localPosition = trackedImage.transform.position + offset.positionOffset;
-                            prefab.transform.localRotation = Quaternion.Euler(offset.rotationOffset);
+                            Debug.Log("End spawnded");
+                            prefab.transform.SetParent(null);
+                            OffsetPrefabs offset = prefab.GetComponent<OffsetPrefabs>();
+                            if (offset != null)
+                            {
+                                prefab.transform.position = trackedImage.transform.position + offset.positionOffset;
+                                prefab.transform.rotation = Quaternion.Euler(offset.rotationOffset);
+                                prefab.SetActive(true);
+                            }
+                            else
+                            {
+                                prefab.transform.position = Vector3.zero;
+                                prefab.transform.rotation = Quaternion.identity;
+                                prefab.SetActive(true);
+                                Debug.Log("No offset!Put offset for End");
+                            }
+                        }
+                        else if (prefab.name.Contains("Start"))
+                        {
+                            prefab.transform.SetParent(null);
+                            Debug.Log("Start spawned");
+                            prefab.transform.position = trackedImage.transform.position;
+                            prefab.transform.rotation = Quaternion.identity;
                             prefab.SetActive(true);
                         }
-                        else
-                        {
-                            prefab.transform.localPosition = Vector3.zero;
-                            prefab.transform.localRotation = Quaternion.identity;
-                            prefab.SetActive(true);
-                            Debug.Log("No offset!Put offset for End");
-                        }
-                    }
-                    else if (prefab.name.Contains("Start"))
-                    {
-                        prefab.transform.localPosition = trackedImage.transform.localPosition;
-                        prefab.transform.localRotation = Quaternion.identity;
-                        prefab.SetActive(true);
                     }
                 }
+                notSpawned = false;
             }
         }
     }
