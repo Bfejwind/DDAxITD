@@ -6,9 +6,9 @@ public class MenuLoad : MonoBehaviour
 {
     public GameObject EnterButton;
 
-    public void LoadExercise()
+    public void LoadMenu()
     {
-        SceneManager.LoadSceneAsync("Exercise");
+        SceneManager.LoadSceneAsync("Menu");
     }
 
 }
