@@ -9,10 +9,9 @@ public class UIChange : MonoBehaviour
     public GameObject LoginUI;
     void Awake()
     {
-        SelectUI.SetActive(false);
         ErrorUser.SetActive(false);
         ErrorPass.SetActive(false);
-        RegisterUI.SetActive(false);
+
     }
     // public void ActivateRegister()
     // {
