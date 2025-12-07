@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "532969537330",
+    "firebase_url": "https://itdxdda-c6456-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "itdxdda-c6456",
+    "storage_bucket": "itdxdda-c6456.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:532969537330:android:deb09bc91db4db00c0212b",
+        "android_client_info": {
+          "package_name": "sg.edu.np.repling"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFoacVyEBIFrfHk5zVhR2YMm5NawzzvoQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
