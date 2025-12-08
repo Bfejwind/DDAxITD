@@ -33,21 +33,11 @@ public class ReplingManager : MonoBehaviour
         {
             auth.SignOut();
         }
-
-        // Set the initial UI state to only show the login page.
-        creationPage.SetActive(false);
-        homePage.SetActive(false);
-        loginPage.SetActive(true);
-
         // Do NOT call CheckOrCreateRepling here; it will be called after a successful login.
     }
 
     public void OnLoginSuccess()
     {
-        loginPage.SetActive(false);
-        creationPage.SetActive(false);
-        homePage.SetActive(false);
-
         StartCoroutine(CheckOrCreateRepling());
     }
 
@@ -72,6 +62,7 @@ public class ReplingManager : MonoBehaviour
 
         if (task.Result.Exists)
         {
+            loginPage.SetActive(false);
             creationPage.SetActive(false); 
             homePage.SetActive(true);     
             
@@ -79,6 +70,7 @@ public class ReplingManager : MonoBehaviour
         }
         else
         {
+            loginPage.SetActive(false);
             creationPage.SetActive(true);  
             homePage.SetActive(false);
         }

@@ -445,8 +445,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c39bb24e2bd7a482ca08117fb44b8e44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Image: {fileID: 2800000, guid: 06813323e5576b043b7dda4c771f398c, type: 3}
-  m_ImagePhysicalSizeMeters: {x: 0.5, y: 0.5}
+  m_Image: {fileID: 2800000, guid: b56b8129ff3170f4488167150f59d392, type: 3}
+  m_ImagePhysicalSizeMeters: {x: 0.2, y: 0.2}
   m_QuadMesh: {fileID: 0}
   m_QuadMaterial: {fileID: 0}
   m_QuadMeshFilter: {fileID: 6274445819058282171}
@@ -1169,8 +1169,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7576867131100388943}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: 0.53766745, z: -0, w: 0.84315705}
+  m_LocalPosition: {x: -0.0014454288, y: 0, z: -0.002266689}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1182,7 +1182,7 @@ Transform:
   - {fileID: 967815941483735921}
   - {fileID: 4357311201868401115}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 65.05, z: 0}
 --- !u!114 &7618165371811446966
 MonoBehaviour:
   m_ObjectHideFlags: 0

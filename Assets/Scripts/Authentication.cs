@@ -28,6 +28,30 @@ public class Authentication : MonoBehaviour
     public GameObject registrationPage;
     public GameObject loginPage;
     public GameObject mainPage;
+    public ReplingManager replingExists;
+    void Start()
+    {
+        Firebase.FirebaseApp.CheckAndFixDependenciesAsync().ContinueWithOnMainThread(task =>
+        {
+            if (task.Result == Firebase.DependencyStatus.Available)
+            {
+                Debug.Log("Firebase is ready");
+            }
+            else
+            {
+                Debug.LogError("Firebase not available: " + task.Result);
+            }
+        });
+
+        HideErrorUI();
+        HideSuccessUI();
+        HideLoginFailUI();
+
+        errorOkButton.onClick.AddListener(HideErrorUI);
+        successOkButton.onClick.AddListener(OnSuccessOkPressed);
+        loginFailOkButton.onClick.AddListener(HideLoginFailUI);
+        replingExists = GetComponent<ReplingManager>();
+    }
 
     public void SignUp()
     {
@@ -53,6 +77,7 @@ public class Authentication : MonoBehaviour
 
     public void Login()
     {
+        
         if (string.IsNullOrEmpty(loginEmailInput.text) || string.IsNullOrEmpty(loginPasswordInput.text))
         {
             ShowLoginFailUI();
@@ -75,8 +100,7 @@ public class Authentication : MonoBehaviour
 
     void OnLoginSuccess()
     {
-        loginPage.SetActive(false);
-        mainPage.SetActive(true);
+        replingExists.OnLoginSuccess();
     }
 
     public void ShowErrorUI()
@@ -128,26 +152,4 @@ public class Authentication : MonoBehaviour
         loginPage.SetActive(true);
     }
 
-    void Start()
-    {
-        Firebase.FirebaseApp.CheckAndFixDependenciesAsync().ContinueWithOnMainThread(task =>
-        {
-            if (task.Result == Firebase.DependencyStatus.Available)
-            {
-                Debug.Log("Firebase is ready");
-            }
-            else
-            {
-                Debug.LogError("Firebase not available: " + task.Result);
-            }
-        });
-
-        HideErrorUI();
-        HideSuccessUI();
-        HideLoginFailUI();
-
-        errorOkButton.onClick.AddListener(HideErrorUI);
-        successOkButton.onClick.AddListener(OnSuccessOkPressed);
-        loginFailOkButton.onClick.AddListener(HideLoginFailUI);
-    }
 }

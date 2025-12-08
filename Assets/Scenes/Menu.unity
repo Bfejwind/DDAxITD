@@ -4115,6 +4115,7 @@ MonoBehaviour:
   LoadedExercise: 0
   statChoice: 
   exerciseChoice: 
+  loginPage: {fileID: 0}
 --- !u!1 &585709682
 GameObject:
   m_ObjectHideFlags: 0
@@ -9692,6 +9693,7 @@ MonoBehaviour:
   registrationPage: {fileID: 152466201}
   loginPage: {fileID: 644231870}
   mainPage: {fileID: 2136718984}
+  replingExists: {fileID: 1079505768}
 --- !u!4 &1479200942
 Transform:
   m_ObjectHideFlags: 0

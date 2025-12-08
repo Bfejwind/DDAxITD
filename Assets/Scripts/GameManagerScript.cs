@@ -7,6 +7,7 @@ public class GameManagerScript : MonoBehaviour
     public bool LoadedExercise = false;
     public string statChoice;
     public string exerciseChoice;
+    public GameObject loginPage;
 
     private void Awake()
     {
@@ -19,6 +20,7 @@ public class GameManagerScript : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject); // Persist across scenes
         }
+        loginPage.SetActive(true);// Set the initial UI state to only show the login page.
     }
 
     public void LoadExercise()

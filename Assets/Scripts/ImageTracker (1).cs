@@ -14,7 +14,8 @@ public class ImageTracker : MonoBehaviour
 
     private Dictionary<string, List<GameObject>> spawnedPrefabsGroups = new Dictionary<string, List<GameObject>>();
     public bool notSpawned;
-
+    public string exercise;
+    public string statType;
     private void Start()
     {
         notSpawned = true;
@@ -64,20 +65,24 @@ public class ImageTracker : MonoBehaviour
     {
         if(trackedImage != null)
         {
-            string imageName = trackedImage.referenceImage.name;
+            exercise = GameManagerScript.Instance.exerciseChoice;
+            if (!spawnedPrefabsGroups.ContainsKey(exercise))
+            {
+                return;
+            }
             if (trackedImage.trackingState == TrackingState.Limited || trackedImage.trackingState == TrackingState.None)
             {
-                foreach (GameObject prefab in spawnedPrefabsGroups[imageName])
+                foreach (GameObject prefab in spawnedPrefabsGroups[exercise])
                 {
                     //Disable the associated content
                     prefab.transform.SetParent(null);
                     prefab.SetActive(false);
-                    notSpawned = true;
                 }
+                notSpawned = true;
             }
             else if (trackedImage.trackingState == TrackingState.Tracking)
             {
-                foreach (GameObject prefab in spawnedPrefabsGroups[imageName])
+                foreach (GameObject prefab in spawnedPrefabsGroups[exercise])
                 {
                     //Enable the associated content
                     if (prefab.name.Contains("Main"))

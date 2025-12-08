@@ -4,13 +4,6 @@ using UnityEngine.UI;
 
 public class ExerciseLoad : MonoBehaviour
 {
-    public enum ActionType
-    {
-        LoadExercise,
-        LoadMenu,
-        None
-    }
-    public ActionType action;
     public enum ExerciseType
     {
         BicepCurl,
@@ -22,14 +15,6 @@ public class ExerciseLoad : MonoBehaviour
     private void Start()
     {
         Button UIButton = GetComponent<Button>();
-        switch (action)
-        {
-            case ActionType.LoadExercise: UIButton.onClick.AddListener(GameManagerScript.Instance.LoadExercise);
-            break;
-            case ActionType.LoadMenu: UIButton.onClick.AddListener(GameManagerScript.Instance.LoadMenu);
-            break;
-            case ActionType.None: break;
-        }
         switch (workout)
         {
             case ExerciseType.BicepCurl: UIButton.onClick.AddListener(GameManagerScript.Instance.ChoseBicepCurl);
