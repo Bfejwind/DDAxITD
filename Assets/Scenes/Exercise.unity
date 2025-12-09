@@ -3698,7 +3698,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &349126852
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9480,6 +9480,9 @@ MonoBehaviour:
   replingSprites:
   - {fileID: 21300000, guid: 58ca3ff55a0b77447a432ad4f5e289fe, type: 3}
   - {fileID: 21300000, guid: 22cdf732efac2a0429708df92a0220d4, type: 3}
+  speedText: {fileID: 1760598071}
+  strengthText: {fileID: 1106758406}
+  enduranceText: {fileID: 282015137}
 --- !u!114 &911583772
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12694,7 +12697,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1240319827
 MonoBehaviour:
   m_ObjectHideFlags: 0
