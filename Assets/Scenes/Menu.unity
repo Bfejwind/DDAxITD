@@ -2035,7 +2035,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2983c30c59f8272408da5eadefa92c18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ExerciseLoad
-  action: 0
   workout: 1
 --- !u!1 &276533704
 GameObject:
@@ -2619,7 +2618,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2983c30c59f8272408da5eadefa92c18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ExerciseLoad
-  action: 0
   workout: 0
 --- !u!1 &304546639
 GameObject:
@@ -4116,6 +4114,8 @@ MonoBehaviour:
   statChoice: 
   exerciseChoice: 
   loginPage: {fileID: 0}
+  tutorialTitle: {fileID: 0}
+  tutorialStat: {fileID: 0}
 --- !u!1 &585709682
 GameObject:
   m_ObjectHideFlags: 0
@@ -4543,7 +4543,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &644231871
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4938,7 +4938,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &701709422
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5811,7 +5811,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2983c30c59f8272408da5eadefa92c18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ExerciseLoad
-  action: 0
   workout: 2
 --- !u!1 &888431727
 GameObject:
@@ -7487,6 +7486,9 @@ MonoBehaviour:
   replingSprites:
   - {fileID: 21300000, guid: 58ca3ff55a0b77447a432ad4f5e289fe, type: 3}
   - {fileID: 21300000, guid: 22cdf732efac2a0429708df92a0220d4, type: 3}
+  speedText: {fileID: 1533983275}
+  strengthText: {fileID: 51947825}
+  enduranceText: {fileID: 123701327}
 --- !u!1 &1090852881
 GameObject:
   m_ObjectHideFlags: 0

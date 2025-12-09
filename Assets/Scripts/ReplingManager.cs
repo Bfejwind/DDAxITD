@@ -17,6 +17,11 @@ public class ReplingManager : MonoBehaviour
     public Image replingImage;
     public Sprite[] replingSprites;
 
+    [Header("Stats UI - Assign the NUMBER text objects here")]
+    public TMP_Text speedText;
+    public TMP_Text strengthText;
+    public TMP_Text enduranceText;
+
     private FirebaseAuth auth;
     private DatabaseReference dbRef;
 
@@ -28,16 +33,19 @@ public class ReplingManager : MonoBehaviour
 
     void Start()
     {
-        // 🛑 CRITICAL CHANGE: Force sign out to destroy any persistent session.
         if (auth.CurrentUser != null)
         {
             auth.SignOut();
         }
-        // Do NOT call CheckOrCreateRepling here; it will be called after a successful login.
+
+        creationPage.SetActive(false);
+        homePage.SetActive(false);
+        loginPage.SetActive(true);
     }
 
     public void OnLoginSuccess()
     {
+        loginPage.SetActive(false);
         StartCoroutine(CheckOrCreateRepling());
     }
 
@@ -62,7 +70,6 @@ public class ReplingManager : MonoBehaviour
 
         if (task.Result.Exists)
         {
-            loginPage.SetActive(false);
             creationPage.SetActive(false); 
             homePage.SetActive(true);     
             
@@ -70,7 +77,6 @@ public class ReplingManager : MonoBehaviour
         }
         else
         {
-            loginPage.SetActive(false);
             creationPage.SetActive(true);  
             homePage.SetActive(false);
         }
@@ -115,7 +121,7 @@ public class ReplingManager : MonoBehaviour
             yield break;
         }
         
-        LoadHomeUIFromLocal(newRepling);
+        StartCoroutine(CheckOrCreateRepling());
     }
 
     private void LoadHomeUI(DataSnapshot snapshot)
@@ -125,6 +131,7 @@ public class ReplingManager : MonoBehaviour
         if (int.TryParse(snapshot.Child("appearanceIndex").Value.ToString(), out int appearanceIndex))
         {
             replingNameText.text = name;
+            
             if (appearanceIndex >= 0 && appearanceIndex < replingSprites.Length)
                 replingImage.sprite = replingSprites[appearanceIndex];
             else
@@ -134,18 +141,14 @@ public class ReplingManager : MonoBehaviour
         {
             Debug.LogError("Failed to parse appearanceIndex from Firebase.");
         }
-    }
 
-    private void LoadHomeUIFromLocal(ReplingData data)
-    {
-        creationPage.SetActive(false);
-        homePage.SetActive(true);
+        var speedVal = snapshot.Child("speed").Value;
+        var strengthVal = snapshot.Child("strength").Value;
+        var enduranceVal = snapshot.Child("endurance").Value;
 
-        replingNameText.text = data.replingName;
-        if (data.appearanceIndex >= 0 && data.appearanceIndex < replingSprites.Length)
-            replingImage.sprite = replingSprites[data.appearanceIndex];
-        else
-            Debug.LogWarning("Appearance index out of range for local data: " + data.appearanceIndex);
+        speedText.text = speedVal != null ? speedVal.ToString() : "0";
+        strengthText.text = strengthVal != null ? strengthVal.ToString() : "0";
+        enduranceText.text = enduranceVal != null ? enduranceVal.ToString() : "0";
     }
 }
 
