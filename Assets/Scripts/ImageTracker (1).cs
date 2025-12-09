@@ -96,7 +96,6 @@ public class ImageTracker : MonoBehaviour
                     {
                         if (prefab.name.Contains("End"))
                         {
-                            Debug.Log("End spawnded");
                             prefab.transform.SetParent(null);
                             OffsetPrefabs offset = prefab.GetComponent<OffsetPrefabs>();
                             if (offset != null)
@@ -116,7 +115,13 @@ public class ImageTracker : MonoBehaviour
                         else if (prefab.name.Contains("Start"))
                         {
                             prefab.transform.SetParent(null);
-                            Debug.Log("Start spawned");
+                            prefab.transform.position = trackedImage.transform.position;
+                            prefab.transform.rotation = Quaternion.identity;
+                            prefab.SetActive(true);
+                        }
+                        else if (prefab.name.Contains("Bear"))
+                        {
+                            prefab.transform.SetParent(null);
                             prefab.transform.position = trackedImage.transform.position;
                             prefab.transform.rotation = Quaternion.identity;
                             prefab.SetActive(true);
