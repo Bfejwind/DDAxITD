@@ -6,6 +6,6 @@ public class MenuLoad : MonoBehaviour
 {
     public void LoadMenu()
     {
-        SceneManager.LoadSceneAsync("Menu");
+        SceneManager.LoadSceneAsync("Exercise");
     }
 }

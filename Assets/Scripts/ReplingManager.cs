@@ -37,15 +37,10 @@ public class ReplingManager : MonoBehaviour
         {
             auth.SignOut();
         }
-
-        creationPage.SetActive(false);
-        homePage.SetActive(false);
-        loginPage.SetActive(true);
     }
 
     public void OnLoginSuccess()
     {
-        loginPage.SetActive(false);
         StartCoroutine(CheckOrCreateRepling());
     }
 
@@ -70,6 +65,7 @@ public class ReplingManager : MonoBehaviour
 
         if (task.Result.Exists)
         {
+            loginPage.SetActive(false);
             creationPage.SetActive(false); 
             homePage.SetActive(true);     
             
@@ -77,6 +73,7 @@ public class ReplingManager : MonoBehaviour
         }
         else
         {
+            loginPage.SetActive(false);
             creationPage.SetActive(true);  
             homePage.SetActive(false);
         }

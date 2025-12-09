@@ -28,15 +28,9 @@ public class GameManagerScript : MonoBehaviour
 
     public void LoadExercise()
     {
-        Debug.Log("Loading Exercise");
         // Load a new scene
         SceneManager.LoadSceneAsync("Exercise");
         LoadedExercise = true;
-    }
-    public void LoadMenu()
-    {
-        SceneManager.LoadSceneAsync("Menu");
-        ResetExerciseChoice();
     }
     public void ChoseSTR()
     {
