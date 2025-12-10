@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -2113084019742796838}
   m_Layer: 0
   m_Name: BicepCurl_Main
-  m_TagString: Untagged
+  m_TagString: MainControl
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

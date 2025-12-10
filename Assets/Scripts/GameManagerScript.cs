@@ -11,6 +11,7 @@ public class GameManagerScript : MonoBehaviour
     public GameObject loginPage;
     public TMP_Text tutorialTitle;
     public TMP_Text tutorialStat;
+    public TMP_Text exerciseReminder;
 
     private void Awake()
     {
@@ -37,18 +38,21 @@ public class GameManagerScript : MonoBehaviour
         statChoice = "Strength";
         tutorialTitle.text = statChoice;
         ChangeTutorialText(statChoice);
+        ChangeReminderText(statChoice);
     }
     public void ChoseSPD()
     {
         statChoice = "Speed";
         tutorialTitle.text = statChoice;
         ChangeTutorialText(statChoice);
+        ChangeReminderText(statChoice);
     }
     public void ChoseEND()
     {
         statChoice = "Endurance";
         tutorialTitle.text = statChoice;
         ChangeTutorialText(statChoice);
+        ChangeReminderText(statChoice);
     }
     public void ChangeTutorialText(string stat)
     {
@@ -63,6 +67,21 @@ public class GameManagerScript : MonoBehaviour
         if (stat == "Endurance")
         {
             tutorialStat.text = "You must complete at <b><u>Least</u></b> 12 Reps before completion";
+        }
+    }
+    public void ChangeReminderText(string stat)
+    {
+        if (stat == "Strength")
+        {
+            exerciseReminder.text = "Strength\n>3 seconds per rep";
+        }
+        if (stat == "Speed")
+        {
+            exerciseReminder.text = "Speed\n<2 secondsper rep";
+        }
+        if (stat == "Endurance")
+        {
+            exerciseReminder.text = "Endurance\n>12 Reps";
         }
     }
     public void ResetStatChoice()
