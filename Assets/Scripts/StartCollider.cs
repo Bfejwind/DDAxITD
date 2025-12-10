@@ -41,7 +41,7 @@ public class StartCollider : MonoBehaviour
             AssignTime();
         }
     }
-    public void SetSuccess()
+    public void ResetReps()
     {
         repsDone = 0;//Needs more input here
     }
@@ -116,13 +116,23 @@ public class StartCollider : MonoBehaviour
     }
     void DisplayTime(float timeToDisplay)
     {
-        timeToDisplay += 1; //Adjust so timer doesnt show less than 0
-        float seconds = Mathf.FloorToInt(timeToDisplay);
-        TMP_Text timerText = GameObject.Find("Timer").GetComponent<TMP_Text>();
-
-        if (timerText != null) // Check if the Text reference is assigned
+        if (GameManagerScript.Instance.statChoice == "Strength" || GameManagerScript.Instance.statChoice == "Speed")
         {
-            timerText.text = seconds.ToString();
+            GameObject Timer = GameObject.Find("Timer");
+            Timer.SetActive(true);
+            timeToDisplay += 1; //Adjust so timer doesnt show less than 0
+            float seconds = Mathf.FloorToInt(timeToDisplay);
+            TMP_Text timerText = GameObject.Find("Timer").GetComponent<TMP_Text>();
+
+            if (timerText != null) // Check if the Text reference is assigned
+            {
+                timerText.text = seconds.ToString();
+            }
+        }
+        else
+        {
+            GameObject timerText = GameObject.Find("Timer");
+            timerText.SetActive(false);
         }
     }
 }
