@@ -126,7 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a8a3328027700b4586ae6100365e6db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OffsetPrefabs
-  positionOffset: {x: 0.4, y: 0.4, z: 0}
+  positionOffset: {x: 0, y: 0.4, z: -0.4}
   rotationOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &6572760145760809149
 MonoBehaviour:

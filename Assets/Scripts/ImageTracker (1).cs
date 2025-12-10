@@ -122,14 +122,35 @@ public class ImageTracker : MonoBehaviour
                         else if (prefab.name.Contains("Bear"))
                         {
                             prefab.transform.SetParent(null);
-                            prefab.transform.position = trackedImage.transform.position;
-                            prefab.transform.rotation = Quaternion.identity;
-                            prefab.SetActive(true);
+                            OffsetPrefabs offset = prefab.GetComponent<OffsetPrefabs>();
+                            if (offset != null)
+                            {
+                                prefab.transform.position = trackedImage.transform.position + offset.positionOffset;
+                                prefab.transform.rotation = Quaternion.Euler(offset.rotationOffset);
+                                prefab.SetActive(true);
+                            }
+                            else
+                            {
+                                prefab.transform.position = Vector3.zero;
+                                prefab.transform.rotation = Quaternion.identity;
+                                prefab.SetActive(true);
+                                Debug.Log("No offset!Put offset for End");
+                            }
                         }
                     }
                 }
                 notSpawned = false;
             }
         }
+    }
+    public void ClearObjects()
+    {
+        foreach (GameObject prefab in spawnedPrefabsGroups[exercise])
+                {
+                    //Disable the associated content
+                    prefab.transform.SetParent(null);
+                    prefab.SetActive(false);
+                }
+                notSpawned = true;
     }
 }
