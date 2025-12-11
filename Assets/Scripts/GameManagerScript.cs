@@ -16,6 +16,9 @@ public class GameManagerScript : MonoBehaviour
     public TMP_Text modifyReps;
     [SerializeField]
     int statIncrease = 1;
+    public GameObject canvasBackground;
+    public GameObject exerciseCanvas;
+    public GameObject repStatusReport;
 
     private void Awake()
     {
@@ -115,45 +118,50 @@ public class GameManagerScript : MonoBehaviour
         modifyReps.text = "Reps: " + repsDone;
         SetComplete();
     }
+    public void StopExercise()
+    {
+        tutorialStat.text = "You completed " + repsDone + " reps!\nI need MORE!";
+        repsDone = 0;
+        modifyReps.text = "Reps: " + repsDone;
+    }
     public void SetComplete()
     {
         if (statChoice == "Strength")
         {
             if (repsDone>= 8)
             {
-                tutorialStat.text = "Congratulations!\nYou've Earned" + statIncrease + " " + statChoice + "!";
+                CompleteCongrats();
             }
-            else
-            {
-                tutorialStat.text = "You completed " + repsDone + "/" + 8 + "reps!\nCome Back and Fight Me!";
-            }
+            return;
         }
         else if (statChoice == "Speed")
         {
             if (repsDone>= 12)
             {
-                tutorialStat.text = "Congratulations!\nYou've Earned" + statIncrease + " " + statChoice + "!";
+                CompleteCongrats();
             }
-            else
-            {
-                tutorialStat.text = "You completed " + repsDone + "/" + 12 + "reps!\nCome Back and Fight Me!";
-            }
+            return;
         }
         else if (statChoice == "Endurance")
         {
             if (repsDone>= 12)
             {
-                tutorialStat.text = "Congratulations!\nYou've Earned" + statIncrease + " " + statChoice + "!";
+                CompleteCongrats();
             }
-            else
-            {
-                tutorialStat.text = "You completed " + repsDone + "/" + 12 + "reps!\nCome Back and Fight Me!";
-            }
+            return;
         }
         else
         {
             Debug.Log("No stat selected");
         }
+    }
+    public void CompleteCongrats()
+    {
+        tutorialStat.text = "Congratulations!\nYou've Earned " + statIncrease + " " + statChoice + "!";
+        canvasBackground.SetActive(true);
+        exerciseCanvas.SetActive(true);
+        repStatusReport.SetActive(true);
         repsDone = 0;
+        modifyReps.text = "Reps: " + repsDone;
     }
 }

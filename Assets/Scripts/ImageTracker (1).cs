@@ -66,6 +66,10 @@ public class ImageTracker : MonoBehaviour
         if(trackedImage != null)
         {
             exercise = GameManagerScript.Instance.exerciseChoice;
+            if (exercise == null)
+            {
+                return;
+            }
             if (!spawnedPrefabsGroups.ContainsKey(exercise))
             {
                 return;

@@ -33,7 +33,6 @@ public class StartCollider : MonoBehaviour
     {
         if (repStart && other.gameObject.CompareTag("MainControl"))
         {
-            Debug.Log("Rep recorded!");
             SuccessRequirements();
             AssignTime();
         }
@@ -105,6 +104,10 @@ public class StartCollider : MonoBehaviour
         if (GameManagerScript.Instance.statChoice == "Strength" || GameManagerScript.Instance.statChoice == "Speed")
         {
             GameObject Timer = GameObject.Find("Timer");
+            if (Timer == null)
+            {
+                return;
+            }
             Timer.SetActive(true);
             timeToDisplay += 1; //Adjust so timer doesnt show less than 0
             float seconds = Mathf.FloorToInt(timeToDisplay);
