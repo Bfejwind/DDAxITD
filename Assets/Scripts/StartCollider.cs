@@ -115,7 +115,7 @@ public class StartCollider : MonoBehaviour
 
             if (timerText != null) // Check if the Text reference is assigned
             {
-                timerText.text = seconds.ToString();
+                timerText.text = "Time: " + seconds.ToString();
             }
         }
         else

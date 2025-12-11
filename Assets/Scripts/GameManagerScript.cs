@@ -66,15 +66,15 @@ public class GameManagerScript : MonoBehaviour
     {
         if (stat == "Strength")
         {
-            tutorialStat.text = "Each Rep must take at <b><u>Least</u></b> 3 seconds before completion";
+            tutorialStat.text = "Each Rep must take at <b><u>Least</u></b> 3 seconds before completion\n\nComplete <b><u>8</u></b> Reps for\n+1 Strength";
         }
         if (stat == "Speed")
         {
-            tutorialStat.text = "Each Rep must take at <b><u>Most</u></b> 2 seconds before completion";
+            tutorialStat.text = "Each Rep must take at <b><u>Most</u></b> 2 seconds before completion\n\nComplete <b><u>12</u></b> Reps for\n+1 Speed";
         }
         if (stat == "Endurance")
         {
-            tutorialStat.text = "You must complete at <b><u>Least</u></b> 12 Reps before completion";
+            tutorialStat.text = "You must complete at <b><u>Least</u></b> 12 Reps for\n+1 Endurance";
         }
     }
     public void ChangeReminderText(string stat)
