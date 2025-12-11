@@ -7,4 +7,5 @@ public class AnimationBehaviour : MonoBehaviour
     {
         anim.SetTrigger("Punch");
     }
+    
 }
