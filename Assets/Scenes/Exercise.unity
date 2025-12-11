@@ -4746,7 +4746,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &349126852
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10596,9 +10596,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ReplingManager
   loginPage: {fileID: 349126851}
   creationPage: {fileID: 510236502}
+  homePage: {fileID: 1952634536}
   nameInput: {fileID: 830890157}
   imageSwitcher: {fileID: 911583772}
-  homePage: {fileID: 1952634536}
   replingNameText: {fileID: 933383143}
   replingImage: {fileID: 1948160665}
   replingSprites:
@@ -15056,7 +15056,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1240319827
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24209,8 +24209,7 @@ MonoBehaviour:
   loginFailOkButton: {fileID: 809556390}
   registrationPage: {fileID: 2064257694}
   loginPage: {fileID: 349126851}
-  mainPage: {fileID: 510236502}
-  replingExists: {fileID: 911583771}
+  replingManager: {fileID: 911583771}
 --- !u!4 &2021142999
 Transform:
   m_ObjectHideFlags: 0

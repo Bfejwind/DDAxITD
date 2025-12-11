@@ -4,20 +4,25 @@ using Firebase.Database;
 using TMPro;
 using UnityEngine.UI;
 using System.Collections;
+using Firebase.Extensions; // Make sure this is here
 
 public class ReplingManager : MonoBehaviour
 {
-    [Header("UI References")]
+    [Header("UI Pages")]
     public GameObject loginPage;
     public GameObject creationPage;
-    public TMP_InputField nameInput;
-    public UIImageSwitcher imageSwitcher;
     public GameObject homePage;
+
+    [Header("Creation Inputs")]
+    public TMP_InputField nameInput;
+    public UIImageSwitcher imageSwitcher; // Ensure you have this script
+
+    [Header("Home Page UI")]
     public TMP_Text replingNameText;
     public Image replingImage;
     public Sprite[] replingSprites;
 
-    [Header("Stats UI - Assign the NUMBER text objects here")]
+    [Header("Stats UI")]
     public TMP_Text speedText;
     public TMP_Text strengthText;
     public TMP_Text enduranceText;
@@ -33,48 +38,63 @@ public class ReplingManager : MonoBehaviour
 
     void Start()
     {
+        // Force Logout on start to prevent "Ghost Login" bugs while testing
         if (auth.CurrentUser != null)
         {
             auth.SignOut();
         }
     }
 
-    public void OnLoginSuccess()
+    // Called by Authentication.cs ONLY after password is verified
+    public void BeginLoadingRoutine()
     {
         StartCoroutine(CheckOrCreateRepling());
     }
 
     IEnumerator CheckOrCreateRepling()
     {
-        while (auth.CurrentUser == null)
+        // 1. Wait for Firebase to finish the login handshake
+        float timeout = 5f;
+        while (auth.CurrentUser == null && timeout > 0)
         {
+            timeout -= Time.deltaTime;
             yield return null;
         }
 
-        string userId = auth.CurrentUser.UserId;
+        if (auth.CurrentUser == null)
+        {
+            Debug.LogError("Login Timed Out - No User Found");
+            yield break;
+        }
 
+        string userId = auth.CurrentUser.UserId;
+        Debug.Log("Checking database for User: " + userId);
+
+        // 2. Check Database
         var task = dbRef.Child("Users").Child(userId).Child("Repling").GetValueAsync();
-        
         yield return new WaitUntil(() => task.IsCompleted);
 
         if (task.Exception != null)
         {
-            Debug.LogError("Failed to check repling: " + task.Exception);
+            Debug.LogError("Database Error: " + task.Exception);
             yield break;
         }
 
+        // 3. Decide which page to show
         if (task.Result.Exists)
         {
-            loginPage.SetActive(false);
-            creationPage.SetActive(false); 
-            homePage.SetActive(true);     
+            Debug.Log("Repling Found! Going to Home.");
+            LoadHomeUI(task.Result); // Load data FIRST
             
-            LoadHomeUI(task.Result);
+            loginPage.SetActive(false);
+            creationPage.SetActive(false);
+            homePage.SetActive(true);
         }
         else
         {
+            Debug.Log("No Repling Found. Going to Creation.");
             loginPage.SetActive(false);
-            creationPage.SetActive(true);  
+            creationPage.SetActive(true);
             homePage.SetActive(false);
         }
     }
@@ -86,13 +106,12 @@ public class ReplingManager : MonoBehaviour
 
     private IEnumerator SaveReplingCoroutine()
     {
-        while (auth.CurrentUser == null)
-            yield return null;
+        if (auth.CurrentUser == null) yield break;
 
         string replingName = nameInput.text;
-        if (string.IsNullOrWhiteSpace(replingName)) 
+        if (string.IsNullOrWhiteSpace(replingName))
         {
-            Debug.LogWarning("Repling name cannot be empty.");
+            Debug.LogWarning("Name is empty!");
             yield break;
         }
 
@@ -103,7 +122,7 @@ public class ReplingManager : MonoBehaviour
             strength = 0,
             endurance = 0,
             evoCount = 0,
-            appearanceIndex = imageSwitcher.currentIndex
+            appearanceIndex = (imageSwitcher != null) ? imageSwitcher.currentIndex : 0 // Safety check
         };
 
         string json = JsonUtility.ToJson(newRepling);
@@ -112,40 +131,31 @@ public class ReplingManager : MonoBehaviour
         var saveTask = dbRef.Child("Users").Child(userId).Child("Repling").SetRawJsonValueAsync(json);
         yield return new WaitUntil(() => saveTask.IsCompleted);
 
-        if (saveTask.Exception != null)
+        if (saveTask.Exception == null)
         {
-            Debug.LogError("Failed to save repling: " + saveTask.Exception);
-            yield break;
+            // After save, reload the home page check
+            StartCoroutine(CheckOrCreateRepling());
         }
-        
-        StartCoroutine(CheckOrCreateRepling());
     }
 
     private void LoadHomeUI(DataSnapshot snapshot)
     {
-        string name = snapshot.Child("replingName").Value.ToString();
-        
-        if (int.TryParse(snapshot.Child("appearanceIndex").Value.ToString(), out int appearanceIndex))
+        // 1. Load Name
+        if (snapshot.Child("replingName").Exists)
+            replingNameText.text = snapshot.Child("replingName").Value.ToString();
+
+        // 2. Load Appearance
+        if (snapshot.Child("appearanceIndex").Exists)
         {
-            replingNameText.text = name;
-            
-            if (appearanceIndex >= 0 && appearanceIndex < replingSprites.Length)
-                replingImage.sprite = replingSprites[appearanceIndex];
-            else
-                Debug.LogWarning("Appearance index out of range: " + appearanceIndex);
-        }
-        else
-        {
-            Debug.LogError("Failed to parse appearanceIndex from Firebase.");
+            int index = int.Parse(snapshot.Child("appearanceIndex").Value.ToString());
+            if (replingSprites != null && index < replingSprites.Length)
+                replingImage.sprite = replingSprites[index];
         }
 
-        var speedVal = snapshot.Child("speed").Value;
-        var strengthVal = snapshot.Child("strength").Value;
-        var enduranceVal = snapshot.Child("endurance").Value;
-
-        speedText.text = speedVal != null ? speedVal.ToString() : "0";
-        strengthText.text = strengthVal != null ? strengthVal.ToString() : "0";
-        enduranceText.text = enduranceVal != null ? enduranceVal.ToString() : "0";
+        // 3. Load Stats (Safe parsing)
+        speedText.text = snapshot.Child("speed").Exists ? snapshot.Child("speed").Value.ToString() : "0";
+        strengthText.text = snapshot.Child("strength").Exists ? snapshot.Child("strength").Value.ToString() : "0";
+        enduranceText.text = snapshot.Child("endurance").Exists ? snapshot.Child("endurance").Value.ToString() : "0";
     }
 }
 
