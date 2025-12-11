@@ -339,10 +339,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 325780211}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0.000030517578, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: -700, y: -1680}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!328 &35206091
 VideoPlayer:
@@ -1992,6 +1992,9 @@ MonoBehaviour:
   tutorialTitle: {fileID: 294297173}
   tutorialStat: {fileID: 1020814612}
   exerciseReminder: {fileID: 1972705774}
+  repsDone: 0
+  modifyReps: {fileID: 1745034583}
+  statIncrease: 1
 --- !u!4 &157351099
 Transform:
   m_ObjectHideFlags: 0
@@ -2038,10 +2041,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1866759949}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0.000030517578, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: -700, y: -1680}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!328 &168118266
 VideoPlayer:
@@ -2228,7 +2231,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -551}
+  m_AnchoredPosition: {x: 0, y: -645}
   m_SizeDelta: {x: 300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &182985762
@@ -2360,10 +2363,10 @@ RectTransform:
   - {fileID: 2109839138}
   m_Father: {fileID: 1830492689}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 700, y: 1100}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &195994244
 MonoBehaviour:
@@ -4746,7 +4749,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &349126852
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8209,10 +8212,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1025296084}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0.000030517578, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: -700, y: -1680}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!328 &683429290
 VideoPlayer:
@@ -10006,7 +10009,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &852185621
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11631,10 +11634,10 @@ RectTransform:
   - {fileID: 182985761}
   m_Father: {fileID: 852185624}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 750, y: 1400}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &993497738
 MonoBehaviour:
@@ -12558,6 +12561,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: ImageTracker, Assembly-CSharp
         m_MethodName: ClearObjects
         m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 195994242}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -14375,7 +14390,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 42}
-  m_SizeDelta: {x: 600, y: 800}
+  m_SizeDelta: {x: 600, y: 1200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1160615658
 MonoBehaviour:
@@ -14397,12 +14412,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "When Ready, \nHold the weights at the exercise's starting position such
-    that the Repling image is visible to your phone camera. \n\nMove the White ball
-    \n->Red ->Blue ->Red to complete a rep\n"
+  m_text: "When Ready, \n\nHold the weights at the exercise's starting position\n\nThe
+    Repling image must be visible to your phone camera. \n\nMove the White ball to\n-><color=red>Red</color>
+    -><color=blue>Blue </color>-><color=red>Red</color> to complete a rep\n"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 192c2089b0d78b041a9be1a69c6ea910, type: 2}
+  m_sharedMaterial: {fileID: 3926504688941943082, guid: 192c2089b0d78b041a9be1a69c6ea910, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -25152,7 +25167,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000029485584, y: -336}
+  m_AnchoredPosition: {x: 0.000029485584, y: -558}
   m_SizeDelta: {x: 350, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2109839139

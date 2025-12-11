@@ -12,9 +12,14 @@ public class GameManagerScript : MonoBehaviour
     public TMP_Text tutorialTitle;
     public TMP_Text tutorialStat;
     public TMP_Text exerciseReminder;
+    public int repsDone;
+    public TMP_Text modifyReps;
+    [SerializeField]
+    int statIncrease = 1;
 
     private void Awake()
     {
+        repsDone = 0;
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject); // Destroy duplicate instances
@@ -104,4 +109,51 @@ public class GameManagerScript : MonoBehaviour
     {
         exerciseChoice = null;
     } 
+    public void RepSuccess()
+    {
+        repsDone++;
+        modifyReps.text = "Reps: " + repsDone;
+        SetComplete();
+    }
+    public void SetComplete()
+    {
+        if (statChoice == "Strength")
+        {
+            if (repsDone>= 8)
+            {
+                tutorialStat.text = "Congratulations!\nYou've Earned" + statIncrease + " " + statChoice + "!";
+            }
+            else
+            {
+                tutorialStat.text = "You completed " + repsDone + "/" + 8 + "reps!\nCome Back and Fight Me!";
+            }
+        }
+        else if (statChoice == "Speed")
+        {
+            if (repsDone>= 12)
+            {
+                tutorialStat.text = "Congratulations!\nYou've Earned" + statIncrease + " " + statChoice + "!";
+            }
+            else
+            {
+                tutorialStat.text = "You completed " + repsDone + "/" + 12 + "reps!\nCome Back and Fight Me!";
+            }
+        }
+        else if (statChoice == "Endurance")
+        {
+            if (repsDone>= 12)
+            {
+                tutorialStat.text = "Congratulations!\nYou've Earned" + statIncrease + " " + statChoice + "!";
+            }
+            else
+            {
+                tutorialStat.text = "You completed " + repsDone + "/" + 12 + "reps!\nCome Back and Fight Me!";
+            }
+        }
+        else
+        {
+            Debug.Log("No stat selected");
+        }
+        repsDone = 0;
+    }
 }

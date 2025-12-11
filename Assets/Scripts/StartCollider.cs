@@ -5,14 +5,11 @@ using UnityEngine;
 public class StartCollider : MonoBehaviour
 {
     public bool repStart;
-    [SerializeField]
-    public int repsDone;
     public float timeRemaining;
     public bool timerRunning;
     void Start()
     {
         repStart = false;
-        repsDone = 0;
         timerRunning = false;
         AssignTime();
     }
@@ -41,10 +38,6 @@ public class StartCollider : MonoBehaviour
             AssignTime();
         }
     }
-    public void ResetReps()
-    {
-        repsDone = 0;//Needs more input here
-    }
     public void OnTriggerExit(Collider other)
     {
         if (other.gameObject.CompareTag("MainControl"))
@@ -58,10 +51,7 @@ public class StartCollider : MonoBehaviour
             {
                 if (timeRemaining == 0)
                 {
-                    Debug.Log("Success");
-                    repsDone++;
-                    TMP_Text changeRepsDone = GameObject.Find("repNumber").GetComponent<TMP_Text>();
-                    changeRepsDone.text = "Reps: " + repsDone;
+                    GameManagerScript.Instance.RepSuccess();
                     repStart = false;
                 }
                 else
@@ -75,9 +65,7 @@ public class StartCollider : MonoBehaviour
         {
             if (timeRemaining > 0)
             {
-                repsDone++;
-                TMP_Text changeRepsDone = GameObject.Find("repNumber").GetComponent<TMP_Text>();
-                changeRepsDone.text = "Reps: " + repsDone;
+                GameManagerScript.Instance.RepSuccess();
                 repStart = false;
             }
             else
@@ -89,9 +77,7 @@ public class StartCollider : MonoBehaviour
         }
         else if (GameManagerScript.Instance.statChoice == "Endurance")
         {
-            repsDone++;
-            TMP_Text changeRepsDone = GameObject.Find("repNumber").GetComponent<TMP_Text>();
-            changeRepsDone.text = "Reps: " + repsDone;
+            GameManagerScript.Instance.RepSuccess();
             repStart = false;
         }
         else
