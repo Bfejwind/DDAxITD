@@ -1,6 +1,10 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Firebase.Auth;
+using Firebase.Database;
+using Firebase.Extensions;
+using System.Collections;
 
 public class GameManagerScript : MonoBehaviour
 {
@@ -20,6 +24,9 @@ public class GameManagerScript : MonoBehaviour
     public GameObject exerciseCanvas;
     public GameObject repStatusReport;
 
+    private FirebaseAuth auth;
+    private DatabaseReference dbRef;
+
     private void Awake()
     {
         repsDone = 0;
@@ -31,6 +38,9 @@ public class GameManagerScript : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject); // Persist across scenes
+
+            auth = FirebaseAuth.DefaultInstance;
+            dbRef = FirebaseDatabase.DefaultInstance.RootReference;
         }
         //loginPage.SetActive(true);// Set the initial UI state to only show the login page.
     }
@@ -163,5 +173,37 @@ public class GameManagerScript : MonoBehaviour
         repStatusReport.SetActive(true);
         repsDone = 0;
         modifyReps.text = "Reps: " + repsDone;
+
+        StartCoroutine(AddStatRoutine());
+    }
+
+    IEnumerator AddStatRoutine()
+    {
+        if (auth.CurrentUser == null) yield break;
+
+        string userId = auth.CurrentUser.UserId;
+        string dbKey = statChoice.ToLower(); // Lower the stat choice to match database keys
+
+        var getTask = dbRef.Child("Users").Child(userId).Child("Repling").Child(dbKey).GetValueAsync();
+        yield return new WaitUntil(() => getTask.IsCompleted);
+
+        if (getTask.Exception != null) 
+        {
+            yield break;
+        }
+
+        long currentVal = 0;
+        if (getTask.Result.Exists)
+        {
+            // Convert the data from Firebase into a number
+            currentVal = long.Parse(getTask.Result.Value.ToString());
+        }
+        
+        long newVal = currentVal + statIncrease;
+
+        // Set the new value back to Firebase
+        var setTask = dbRef.Child("Users").Child(userId).Child("Repling").Child(dbKey).SetValueAsync(newVal);
+        yield return new WaitUntil(() => setTask.IsCompleted);
+    
     }
 }

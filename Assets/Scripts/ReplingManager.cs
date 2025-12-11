@@ -4,7 +4,7 @@ using Firebase.Database;
 using TMPro;
 using UnityEngine.UI;
 using System.Collections;
-using Firebase.Extensions; // Make sure this is here
+using Firebase.Extensions; 
 
 public class ReplingManager : MonoBehaviour
 {
@@ -15,7 +15,7 @@ public class ReplingManager : MonoBehaviour
 
     [Header("Creation Inputs")]
     public TMP_InputField nameInput;
-    public UIImageSwitcher imageSwitcher; // Ensure you have this script
+    public UIImageSwitcher imageSwitcher; 
 
     [Header("Home Page UI")]
     public TMP_Text replingNameText;
@@ -38,22 +38,35 @@ public class ReplingManager : MonoBehaviour
 
     void Start()
     {
-        // Force Logout on start to prevent "Ghost Login" bugs while testing
         if (auth.CurrentUser != null)
         {
             auth.SignOut();
         }
     }
 
-    // Called by Authentication.cs ONLY after password is verified
     public void BeginLoadingRoutine()
     {
-        StartCoroutine(CheckOrCreateRepling());
+        StartCoroutine(KeepUpdatingStats());
+    }
+
+    IEnumerator KeepUpdatingStats()
+    {
+        yield return StartCoroutine(CheckOrCreateRepling());
+
+        while (true)
+        {
+            // Wait 3 seconds
+            yield return new WaitForSeconds(3f);
+
+            if (homePage.activeInHierarchy)
+            {
+                yield return StartCoroutine(CheckOrCreateRepling());
+            }
+        }
     }
 
     IEnumerator CheckOrCreateRepling()
     {
-        // 1. Wait for Firebase to finish the login handshake
         float timeout = 5f;
         while (auth.CurrentUser == null && timeout > 0)
         {
@@ -68,9 +81,7 @@ public class ReplingManager : MonoBehaviour
         }
 
         string userId = auth.CurrentUser.UserId;
-        Debug.Log("Checking database for User: " + userId);
 
-        // 2. Check Database
         var task = dbRef.Child("Users").Child(userId).Child("Repling").GetValueAsync();
         yield return new WaitUntil(() => task.IsCompleted);
 
@@ -80,22 +91,26 @@ public class ReplingManager : MonoBehaviour
             yield break;
         }
 
-        // 3. Decide which page to show
         if (task.Result.Exists)
         {
-            Debug.Log("Repling Found! Going to Home.");
-            LoadHomeUI(task.Result); // Load data FIRST
+            // Only force page switches if we aren't already there (prevents flickering)
+            if (!homePage.activeSelf)
+            {
+                loginPage.SetActive(false);
+                creationPage.SetActive(false);
+                homePage.SetActive(true);
+            }
             
-            loginPage.SetActive(false);
-            creationPage.SetActive(false);
-            homePage.SetActive(true);
+            LoadHomeUI(task.Result); 
         }
         else
         {
-            Debug.Log("No Repling Found. Going to Creation.");
-            loginPage.SetActive(false);
-            creationPage.SetActive(true);
-            homePage.SetActive(false);
+            if (!creationPage.activeSelf)
+            {
+                loginPage.SetActive(false);
+                creationPage.SetActive(true);
+                homePage.SetActive(false);
+            }
         }
     }
 
@@ -122,7 +137,7 @@ public class ReplingManager : MonoBehaviour
             strength = 0,
             endurance = 0,
             evoCount = 0,
-            appearanceIndex = (imageSwitcher != null) ? imageSwitcher.currentIndex : 0 // Safety check
+            appearanceIndex = (imageSwitcher != null) ? imageSwitcher.currentIndex : 0 
         };
 
         string json = JsonUtility.ToJson(newRepling);
@@ -133,18 +148,15 @@ public class ReplingManager : MonoBehaviour
 
         if (saveTask.Exception == null)
         {
-            // After save, reload the home page check
             StartCoroutine(CheckOrCreateRepling());
         }
     }
 
     private void LoadHomeUI(DataSnapshot snapshot)
     {
-        // 1. Load Name
         if (snapshot.Child("replingName").Exists)
             replingNameText.text = snapshot.Child("replingName").Value.ToString();
 
-        // 2. Load Appearance
         if (snapshot.Child("appearanceIndex").Exists)
         {
             int index = int.Parse(snapshot.Child("appearanceIndex").Value.ToString());
@@ -152,7 +164,6 @@ public class ReplingManager : MonoBehaviour
                 replingImage.sprite = replingSprites[index];
         }
 
-        // 3. Load Stats (Safe parsing)
         speedText.text = snapshot.Child("speed").Exists ? snapshot.Child("speed").Value.ToString() : "0";
         strengthText.text = snapshot.Child("strength").Exists ? snapshot.Child("strength").Value.ToString() : "0";
         enduranceText.text = snapshot.Child("endurance").Exists ? snapshot.Child("endurance").Value.ToString() : "0";
