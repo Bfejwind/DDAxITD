@@ -128,6 +128,10 @@ public class GameManagerScript : MonoBehaviour
         modifyReps.text = "Reps: " + repsDone;
         SetComplete();
     }
+    public void ModifyReps()
+    {
+        modifyReps.text = "Reps: " + repsDone;
+    }
     public void StopExercise()
     {
         tutorialStat.text = "You completed " + repsDone + " reps!\nI need MORE!";

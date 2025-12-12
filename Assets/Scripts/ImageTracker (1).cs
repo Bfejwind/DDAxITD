@@ -78,9 +78,12 @@ public class ImageTracker : MonoBehaviour
             {
                 foreach (GameObject prefab in spawnedPrefabsGroups[exercise])
                 {
-                    //Disable the associated content
-                    prefab.transform.SetParent(null);
-                    prefab.SetActive(false);
+                    if (!prefab.name.Contains("Bear"))
+                    {
+                        //Disable the associated content
+                        prefab.transform.SetParent(null);
+                        prefab.SetActive(false);
+                    }
                 }
                 notSpawned = true;
             }
