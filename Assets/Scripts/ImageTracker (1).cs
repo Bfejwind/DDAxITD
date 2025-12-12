@@ -126,7 +126,25 @@ public class ImageTracker : MonoBehaviour
                             prefab.transform.rotation = Quaternion.identity;
                             prefab.SetActive(true);
                         }
-                        else if (prefab.name.Contains("Bear"))
+                        else if (prefab.name.Contains("Bear") && GameManagerScript.Instance.ReplingIndex == 0)
+                        {
+                            prefab.transform.SetParent(null);
+                            OffsetPrefabs offset = prefab.GetComponent<OffsetPrefabs>();
+                            if (offset != null)
+                            {
+                                prefab.transform.position = trackedImage.transform.position + offset.positionOffset;
+                                prefab.transform.rotation = Quaternion.Euler(offset.rotationOffset);
+                                prefab.SetActive(true);
+                            }
+                            else
+                            {
+                                prefab.transform.position = Vector3.zero;
+                                prefab.transform.rotation = Quaternion.identity;
+                                prefab.SetActive(true);
+                                Debug.Log("No offset!Put offset for End");
+                            }
+                        }
+                        else if (prefab.name.Contains("Fox") && GameManagerScript.Instance.ReplingIndex == 1)
                         {
                             prefab.transform.SetParent(null);
                             OffsetPrefabs offset = prefab.GetComponent<OffsetPrefabs>();

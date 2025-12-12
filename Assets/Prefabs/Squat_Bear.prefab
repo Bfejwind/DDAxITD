@@ -101,7 +101,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: c46b589de583a9f44be3a61df45b4074, type: 2}
     - target: {fileID: 919132149155446097, guid: f64154413a466a0429d0ac1654b74d08, type: 3}
       propertyPath: m_Name
-      value: BicepCurl_Bear
+      value: Squat_Bear
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: f64154413a466a0429d0ac1654b74d08, type: 3}
       propertyPath: m_Controller

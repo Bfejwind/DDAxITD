@@ -23,6 +23,7 @@ public class GameManagerScript : MonoBehaviour
     public GameObject canvasBackground;
     public GameObject exerciseCanvas;
     public GameObject repStatusReport;
+    public int ReplingIndex = 0;
 
     private FirebaseAuth auth;
     private DatabaseReference dbRef;

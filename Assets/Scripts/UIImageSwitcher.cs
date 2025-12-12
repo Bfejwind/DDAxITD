@@ -22,6 +22,7 @@ public class UIImageSwitcher : MonoBehaviour
         if (currentIndex >= images.Length) currentIndex = 0;
         displayImage.sprite = images[currentIndex];
         archetypeStat.text = archetypes[currentIndex];
+        GameManagerScript.Instance.ReplingIndex = currentIndex;
     }
 
     public void PreviousImage()
@@ -30,5 +31,6 @@ public class UIImageSwitcher : MonoBehaviour
         if (currentIndex < 0) currentIndex = images.Length - 1;
         displayImage.sprite = images[currentIndex];
         archetypeStat.text = archetypes[currentIndex];
+        GameManagerScript.Instance.ReplingIndex = currentIndex;
     }
 }

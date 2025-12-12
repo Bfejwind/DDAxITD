@@ -5,7 +5,7 @@ public class AnimationBehaviour : MonoBehaviour
     [SerializeField]
     Animator SBearAnim;
     public int animationIndex;
-    public void DecideAnimation()
+    public void SDecideAnimation()
     {
         animationIndex = Random.Range(1,21);
         if (animationIndex == 1)
@@ -25,5 +25,4 @@ public class AnimationBehaviour : MonoBehaviour
             SBearAnim.SetTrigger("Tapped");    
         }
     }
-    
 }
