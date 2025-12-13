@@ -4783,6 +4783,8 @@ MonoBehaviour:
   - {fileID: 3671722770182476584, guid: b28892e3762e6f24bbfd99e96e840d98, type: 3}
   - {fileID: 3671722770182476584, guid: 529a5d3e7dc584f438948dbd29030312, type: 3}
   - {fileID: 44971198039432862, guid: 73c1cbb24c76661409a1ee4f3806d9dc, type: 3}
+  - {fileID: 44971198039432862, guid: a410c71c40cd95f42b8e891f97610778, type: 3}
+  - {fileID: 44971198039432862, guid: 251c89c91807dfc42bf20aee115f6a15, type: 3}
   notSpawned: 0
   exercise: 
   statType: 
@@ -26442,7 +26444,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 44971198039432862, guid: 73c1cbb24c76661409a1ee4f3806d9dc, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 852330128405152804, guid: 73c1cbb24c76661409a1ee4f3806d9dc, type: 3}
       propertyPath: m_LocalPosition.x
@@ -26484,6 +26486,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8659261759480124537, guid: 73c1cbb24c76661409a1ee4f3806d9dc, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: d703f81324210204b8f86fe93498b382, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
