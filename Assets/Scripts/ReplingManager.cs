@@ -4,7 +4,8 @@ using Firebase.Database;
 using TMPro;
 using UnityEngine.UI;
 using System.Collections;
-using Firebase.Extensions; 
+using Firebase.Extensions;
+using System.Collections.Generic;
 
 public class ReplingManager : MonoBehaviour
 {
@@ -15,7 +16,7 @@ public class ReplingManager : MonoBehaviour
 
     [Header("Creation Inputs")]
     public TMP_InputField nameInput;
-    public UIImageSwitcher imageSwitcher; 
+    public UIImageSwitcher imageSwitcher;
 
     [Header("Home Page UI")]
     public TMP_Text replingNameText;
@@ -26,6 +27,22 @@ public class ReplingManager : MonoBehaviour
     public TMP_Text speedText;
     public TMP_Text strengthText;
     public TMP_Text enduranceText;
+
+    [Header("Evolution Settings")]
+    public int reqStrength = 10;
+    public int reqSpeed = 5;
+    public int reqEndurance = 5;
+    public GameObject evolutionUIPanel;
+    public GameObject alreadyEvolvedUI;
+    public GameObject evolutionSuccessUI;
+    public GameObject evolutionFailUI;
+
+    // Local cached stats
+    private int curSpeed;
+    private int curStrength;
+    private int curEndurance;
+    private int curEvoCount;
+    private int curAppearanceIndex;
 
     private FirebaseAuth auth;
     private DatabaseReference dbRef;
@@ -47,6 +64,77 @@ public class ReplingManager : MonoBehaviour
     public void BeginLoadingRoutine()
     {
         StartCoroutine(KeepUpdatingStats());
+    }
+
+    public void AttemptEvolve()
+    {
+        if (curEvoCount >= 1)
+        {
+            if (evolutionUIPanel != null) evolutionUIPanel.SetActive(false);
+
+            if (alreadyEvolvedUI != null) alreadyEvolvedUI.SetActive(true);
+            
+            return;
+        }
+
+        //Debug.Log($"Attempting Evolve... Stats: STR:{curStrength}/{reqStrength} SPD:{curSpeed}/{reqSpeed} END:{curEndurance}/{reqEndurance}");
+
+        if (curStrength >= reqStrength && curSpeed >= reqSpeed && curEndurance >= reqEndurance)
+        {
+            StartCoroutine(EvolveSuccessRoutine());
+        }
+        else
+        {
+            if(evolutionUIPanel != null) evolutionUIPanel.SetActive(false);
+
+            if(evolutionFailUI != null) evolutionFailUI.SetActive(true);
+        }
+    }
+
+    private IEnumerator EvolveSuccessRoutine()
+    {
+        if (auth.CurrentUser == null) yield break;
+
+        // Calculate new data 
+        int newEvoCount = curEvoCount + 1;
+        int newAppearanceIndex = curAppearanceIndex;
+
+        string userId = auth.CurrentUser.UserId;
+        DatabaseReference replingRef = dbRef.Child("Users").Child(userId).Child("Repling");
+
+        if (curAppearanceIndex == 0)
+        {
+            newAppearanceIndex = 2;
+        }
+        else if (curAppearanceIndex == 1)
+        {
+            newAppearanceIndex = 3;
+        }
+
+        // Prepare updates 
+        Dictionary<string, object> updates = new Dictionary<string, object>
+        {
+            { "evoCount", newEvoCount },
+            { "appearanceIndex", newAppearanceIndex }
+        };
+
+        // Push to Firebase
+        var task = replingRef.UpdateChildrenAsync(updates);
+        yield return new WaitUntil(() => task.IsCompleted);
+
+        if (task.Exception == null)
+        {
+
+            if (evolutionUIPanel != null) evolutionUIPanel.SetActive(false);
+
+            if(evolutionSuccessUI != null) evolutionSuccessUI.SetActive(true);
+
+            StartCoroutine(CheckOrCreateRepling());
+        }
+        else
+        {
+            Debug.LogError("Failed to save evolution: " + task.Exception);
+        }
     }
 
     IEnumerator KeepUpdatingStats()
@@ -100,8 +188,8 @@ public class ReplingManager : MonoBehaviour
                 creationPage.SetActive(false);
                 homePage.SetActive(true);
             }
-            
-            LoadHomeUI(task.Result); 
+
+            LoadHomeUI(task.Result);
         }
         else
         {
@@ -137,7 +225,7 @@ public class ReplingManager : MonoBehaviour
             strength = 0,
             endurance = 0,
             evoCount = 0,
-            appearanceIndex = (imageSwitcher != null) ? imageSwitcher.currentIndex : 0 
+            appearanceIndex = (imageSwitcher != null) ? imageSwitcher.currentIndex : 0
         };
 
         string json = JsonUtility.ToJson(newRepling);
@@ -154,19 +242,25 @@ public class ReplingManager : MonoBehaviour
 
     private void LoadHomeUI(DataSnapshot snapshot)
     {
-        if (snapshot.Child("replingName").Exists)
-            replingNameText.text = snapshot.Child("replingName").Value.ToString();
+        // Cache variables
+        curAppearanceIndex = snapshot.Child("appearanceIndex").Exists ? int.Parse(snapshot.Child("appearanceIndex").Value.ToString()) : 0;
+        curSpeed = snapshot.Child("speed").Exists ? int.Parse(snapshot.Child("speed").Value.ToString()) : 0;
+        curStrength = snapshot.Child("strength").Exists ? int.Parse(snapshot.Child("strength").Value.ToString()) : 0;
+        curEndurance = snapshot.Child("endurance").Exists ? int.Parse(snapshot.Child("endurance").Value.ToString()) : 0;
+        curEvoCount = snapshot.Child("evoCount").Exists ? int.Parse(snapshot.Child("evoCount").Value.ToString()) : 0;
 
-        if (snapshot.Child("appearanceIndex").Exists)
+        // UI Updates
+        if (snapshot.Child("replingName").Exists)
         {
-            int index = int.Parse(snapshot.Child("appearanceIndex").Value.ToString());
-            if (replingSprites != null && index < replingSprites.Length)
-                replingImage.sprite = replingSprites[index];
+            replingNameText.text = snapshot.Child("replingName").Value.ToString();
         }
 
-        speedText.text = snapshot.Child("speed").Exists ? snapshot.Child("speed").Value.ToString() : "0";
-        strengthText.text = snapshot.Child("strength").Exists ? snapshot.Child("strength").Value.ToString() : "0";
-        enduranceText.text = snapshot.Child("endurance").Exists ? snapshot.Child("endurance").Value.ToString() : "0";
+        if (replingSprites != null && curAppearanceIndex < replingSprites.Length)
+            replingImage.sprite = replingSprites[curAppearanceIndex];
+
+        speedText.text = curSpeed.ToString();
+        strengthText.text = curStrength.ToString();
+        enduranceText.text = curEndurance.ToString();
     }
 }
 
