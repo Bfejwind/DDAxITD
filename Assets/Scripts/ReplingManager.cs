@@ -37,6 +37,11 @@ public class ReplingManager : MonoBehaviour
     public GameObject evolutionSuccessUI;
     public GameObject evolutionFailUI;
 
+    [Header("Login Inputs")]
+    public TMP_InputField emailInput;
+    public TMP_InputField passwordInput;
+    public GameObject logOutPrompt;
+
     // Local cached stats
     private int curSpeed;
     private int curStrength;
@@ -261,6 +266,20 @@ public class ReplingManager : MonoBehaviour
         speedText.text = curSpeed.ToString();
         strengthText.text = curStrength.ToString();
         enduranceText.text = curEndurance.ToString();
+    }
+
+    public void LogOut()
+    {
+        auth.SignOut();
+
+        if (emailInput != null) emailInput.text = "";
+        if (passwordInput != null) passwordInput.text = "";
+
+        homePage.SetActive(false);
+        creationPage.SetActive(false);
+        logOutPrompt.SetActive(false);
+        
+        loginPage.SetActive(true);
     }
 }
 
