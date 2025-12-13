@@ -24,6 +24,18 @@ public class GameManagerScript : MonoBehaviour
     public GameObject exerciseCanvas;
     public GameObject repStatusReport;
     public int ReplingIndex = 0;
+    [SerializeField]
+    AudioSource PunchingSFX;
+    [SerializeField]
+    AudioSource WinningSFX;
+    [SerializeField]
+    AudioSource SlashingSFX;
+    [SerializeField]
+    AudioSource Natural1SFX;
+    [SerializeField]
+    AudioSource RepUpSFX;
+    [SerializeField]
+    AudioSource SetCompleteSFX;
 
     private FirebaseAuth auth;
     private DatabaseReference dbRef;
@@ -126,6 +138,7 @@ public class GameManagerScript : MonoBehaviour
     public void RepSuccess()
     {
         repsDone++;
+        RepUpSFX.Play();
         modifyReps.text = "Reps: " + repsDone;
         SetComplete();
     }
@@ -146,6 +159,7 @@ public class GameManagerScript : MonoBehaviour
             if (repsDone>= 8)
             {
                 CompleteCongrats();
+                SetCompleteSFX.Play();
             }
             return;
         }
@@ -154,6 +168,7 @@ public class GameManagerScript : MonoBehaviour
             if (repsDone>= 12)
             {
                 CompleteCongrats();
+                SetCompleteSFX.Play();
             }
             return;
         }
@@ -162,6 +177,7 @@ public class GameManagerScript : MonoBehaviour
             if (repsDone>= 12)
             {
                 CompleteCongrats();
+                SetCompleteSFX.Play();
             }
             return;
         }
@@ -210,5 +226,21 @@ public class GameManagerScript : MonoBehaviour
         var setTask = dbRef.Child("Users").Child(userId).Child("Repling").Child(dbKey).SetValueAsync(newVal);
         yield return new WaitUntil(() => setTask.IsCompleted);
     
+    }
+    public void Punch()
+    {
+        PunchingSFX.Play();
+    }
+    public void Winning()
+    {
+        WinningSFX.Play();
+    }
+    public void Slash()
+    {
+        SlashingSFX.Play();
+    }
+    public void Dying()
+    {
+        Natural1SFX.Play();
     }
 }
