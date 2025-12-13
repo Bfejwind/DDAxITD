@@ -87,6 +87,7 @@ public class ReplingManager : MonoBehaviour
         if (curStrength >= reqStrength && curSpeed >= reqSpeed && curEndurance >= reqEndurance)
         {
             StartCoroutine(EvolveSuccessRoutine());
+            GameManagerScript.Instance.Evolve();
         }
         else
         {

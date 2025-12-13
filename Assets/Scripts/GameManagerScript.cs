@@ -36,6 +36,8 @@ public class GameManagerScript : MonoBehaviour
     AudioSource RepUpSFX;
     [SerializeField]
     AudioSource SetCompleteSFX;
+    [SerializeField]
+    AudioSource EvolutionSFX;
 
     private FirebaseAuth auth;
     private DatabaseReference dbRef;
@@ -242,5 +244,9 @@ public class GameManagerScript : MonoBehaviour
     public void Dying()
     {
         Natural1SFX.Play();
+    }
+    public void Evolve()
+    {
+        EvolutionSFX.Play();
     }
 }
