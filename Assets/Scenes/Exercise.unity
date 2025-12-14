@@ -3999,7 +3999,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: aa9d60a5891c6db45bfa091adae1297b, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.2
+  m_Volume: 0.641
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -5876,15 +5876,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ImageTracker
   trackedImageManager: {fileID: 331264288}
   placeablePrefabs:
-  - {fileID: 6459362353527724645, guid: c4d0dc776a0589e4fa5ab9e22beb3015, type: 3}
-  - {fileID: 2893893400582451587, guid: a8c28ebc2f6d0ff4cb0dd1e25e8ce45c, type: 3}
-  - {fileID: 636668504390935902, guid: 8130e965827c9bc498d1a86752aca72e, type: 3}
-  - {fileID: 6459362353527724645, guid: 45599e68a6cdc0c44b5b121ddd960a3b, type: 3}
-  - {fileID: 2893893400582451587, guid: 08745e992ba5b7e4e8016aec9c7cd2e0, type: 3}
-  - {fileID: 636668504390935902, guid: 3725bc251c9e92345828a8df66192ee7, type: 3}
-  - {fileID: 6459362353527724645, guid: 672ab1c02e266274b8fc51c6c0c253c2, type: 3}
-  - {fileID: 2893893400582451587, guid: 502838ac9c9614c4c9cb713cad4c85d0, type: 3}
-  - {fileID: 636668504390935902, guid: 16e237be7a866404e8175cc254338829, type: 3}
+  - {fileID: 6874097906679817965, guid: 27036a7ba32e5394ebd44e04e7438a22, type: 3}
+  - {fileID: 9102812281159381741, guid: edbf023373e58f2449a57d79903b7b7c, type: 3}
+  - {fileID: 6767208662476658959, guid: ed229d6080bb4ca418eb948567f9d4ea, type: 3}
+  - {fileID: 6874097906679817965, guid: fc6e59e0533ce9f4ba3cc280e1fcbaed, type: 3}
+  - {fileID: 9102812281159381741, guid: d6540e951432a424bb4ddca68f7391f5, type: 3}
+  - {fileID: 6767208662476658959, guid: f6e19475b26b5da4c9d0dee15a706e52, type: 3}
+  - {fileID: 6874097906679817965, guid: a80bfb615e0435648b4535c3b09c5f27, type: 3}
+  - {fileID: 9102812281159381741, guid: 09000b52d090f1743a8624c1b57980a6, type: 3}
+  - {fileID: 6767208662476658959, guid: 32e1148b7107de8498e929453d13e118, type: 3}
   - {fileID: 3671722770182476584, guid: e33015f0411b3034089f43a8e72cd2ea, type: 3}
   - {fileID: 3671722770182476584, guid: b28892e3762e6f24bbfd99e96e840d98, type: 3}
   - {fileID: 3671722770182476584, guid: 529a5d3e7dc584f438948dbd29030312, type: 3}
@@ -17894,7 +17894,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1240319827
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25049,7 +25049,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1830492689
 RectTransform:
   m_ObjectHideFlags: 0
